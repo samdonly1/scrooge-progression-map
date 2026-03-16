@@ -33,10 +33,27 @@ button {
 }
 
 .full-map-image {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
   display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+.map-overlay {
+  position: absolute;
+  overflow: hidden;
+}
+
+.full-map-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  user-select: none;
 }
 
 .ocean-motion,
@@ -631,6 +648,26 @@ button {
   transform: translate(-50%, -50%);
   pointer-events: none;
   user-select: none;
+  overflow: visible;
+}
+
+.map-prop-ground-shadow {
+  position: absolute;
+  left: 50%;
+  top: var(--shadow-y, 84%);
+  width: var(--shadow-w, 70%);
+  height: var(--shadow-h, 16%);
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse,
+    rgba(56, 34, 8, var(--shadow-opacity, 0.2)) 0%,
+    rgba(56, 34, 8, calc(var(--shadow-opacity, 0.2) * 0.58)) 42%,
+    rgba(56, 34, 8, 0) 74%
+  );
+  filter: blur(6px);
 }
 
 .map-prop {
@@ -640,10 +677,16 @@ button {
   height: auto;
   pointer-events: none;
   user-select: none;
-  transform-origin: center center;
-  transform: rotate(var(--rot, 0deg));
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.22));
   z-index: 2;
+  opacity: var(--prop-opacity, 1);
+  transform-origin: center center;
+  transform: rotate(var(--rot, 0deg)) scale(var(--prop-scale, 1));
+  filter:
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.08))
+    drop-shadow(0 4px 10px rgba(0, 0, 0, 0.14))
+    brightness(var(--prop-brightness, 0.97))
+    saturate(var(--prop-saturate, 0.95))
+    contrast(var(--prop-contrast, 0.98));
 }
 
 /* Subtle chest / character-like idle float */
@@ -669,56 +712,56 @@ button {
 .prop-shine-rays {
   position: absolute;
   left: 50%;
-  top: 50%;
-  width: 145%;
-  height: 145%;
+  top: 56%;
+  width: 122%;
+  height: 122%;
   transform: translate(-50%, -50%);
   border-radius: 999px;
-  z-index: 0;
-  opacity: 0.42;
+  z-index: 1;
+  opacity: 0.18;
   pointer-events: none;
   background:
     conic-gradient(
       from 0deg,
       rgba(255, 240, 170, 0) 0deg,
-      rgba(255, 239, 165, 0.18) 18deg,
+      rgba(255, 239, 165, 0.1) 18deg,
       rgba(255, 240, 170, 0) 36deg,
-      rgba(255, 239, 165, 0.12) 58deg,
+      rgba(255, 239, 165, 0.08) 58deg,
       rgba(255, 240, 170, 0) 78deg,
-      rgba(255, 239, 165, 0.16) 102deg,
+      rgba(255, 239, 165, 0.1) 102deg,
       rgba(255, 240, 170, 0) 128deg,
-      rgba(255, 239, 165, 0.12) 152deg,
+      rgba(255, 239, 165, 0.08) 152deg,
       rgba(255, 240, 170, 0) 178deg,
-      rgba(255, 239, 165, 0.16) 206deg,
+      rgba(255, 239, 165, 0.1) 206deg,
       rgba(255, 240, 170, 0) 232deg,
-      rgba(255, 239, 165, 0.12) 258deg,
+      rgba(255, 239, 165, 0.08) 258deg,
       rgba(255, 240, 170, 0) 286deg,
-      rgba(255, 239, 165, 0.16) 316deg,
+      rgba(255, 239, 165, 0.1) 316deg,
       rgba(255, 240, 170, 0) 360deg
     );
-  filter: blur(1.5px);
-  animation: propRaysSpin 14s linear infinite, propRaysPulse 3.6s ease-in-out infinite;
+  filter: blur(2.5px);
+  animation: propRaysSpin 16s linear infinite, propRaysPulse 4.2s ease-in-out infinite;
 }
 
 .prop-aura {
   position: absolute;
   left: 50%;
-  top: 54%;
-  width: 112%;
-  height: 72%;
+  top: 62%;
+  width: 96%;
+  height: 52%;
   transform: translate(-50%, -50%);
   z-index: 1;
   border-radius: 999px;
   pointer-events: none;
   background: radial-gradient(
     ellipse,
-    rgba(255, 227, 120, 0.22) 0%,
-    rgba(255, 209, 86, 0.12) 38%,
-    rgba(255, 191, 78, 0.04) 56%,
-    transparent 74%
+    rgba(255, 223, 110, 0.12) 0%,
+    rgba(255, 203, 82, 0.06) 38%,
+    rgba(255, 191, 78, 0.02) 58%,
+    transparent 76%
   );
-  filter: blur(8px);
-  animation: propAuraPulse 2.8s ease-in-out infinite;
+  filter: blur(10px);
+  animation: propAuraPulse 3.2s ease-in-out infinite;
 }
 
 @keyframes propFloatSlow {
@@ -1006,10 +1049,6 @@ button {
     rgb(156, 234, 255) 16%,
     rgb(220, 249, 255) 50%,
     rgb(156, 234, 255) 84%,
-
-    /* rgba(156, 233, 255, 0.08) 16%,
-    rgba(220, 249, 255, 0.38) 50%,
-    rgba(156, 233, 255, 0.08) 84%, */
     transparent 100%
   );
   filter: blur(4px);
@@ -1243,8 +1282,6 @@ button {
   animation: pondRipple 3.4s ease-out infinite;
 }
 
-
-
 .pond-ripple-bottom {
   left: 33.5%;
   top: 57.8%;
@@ -1334,64 +1371,7 @@ button {
   }
 }
 
-/* ---------------- FOUNTAIN WATER EFFECT ---------------- */
 
-.fountain-jet,
-.fountain-glow,
-.fountain-ripple,
-.fountain-spark {
-  position: absolute;
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* main water jets */
-.fountain-jet {
-  border-radius: 999px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(235, 252, 255, 1) 18%,
-    rgba(150, 236, 255, 1) 52%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  filter: blur(1.4px);
-  overflow: hidden;
-  opacity: 1;
-}
-
-.fountain-jet::after {
-  content: "";
-  position: absolute;
-  inset: -30% 0;
-  background: repeating-linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.65) 0px,
-    rgba(255, 255, 255, 0.18) 8px,
-    rgba(180, 244, 255, 0.35) 16px,
-    rgba(255, 255, 255, 0.08) 24px
-  );
-  animation: fountainJetRun 0.9s linear infinite;
-}
-
-/* center jet */
-.fountain-jet-1 {
-  left: 70.1%;
-  top: 50.2%;
-  width: 9%;
-  height: 63%;
-  transform: rotate(0deg);
-}
-
-/* left jet */
-.fountain-jet-2 {
-  left: 79.45%;
-  top: 66.9%;
-  width: 0.6%;
-  height: 5.1%;
-  transform: rotate(-10deg);
-  opacity: 1;
-}
 
 /* right jet */
 .fountain-jet-3 {
@@ -1412,111 +1392,186 @@ button {
   }
 }
 
-/* glow in the bowl water */
-/* .fountain-glow {
+
+/* ---------------- FOUNTAIN WATER EFFECT — TUNED ---------------- */
+
+.fountain-jet,
+.fountain-glow,
+.fountain-ripple,
+.fountain-spark {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* keep the streams subtle and inside the bowl area */
+.fountain-jet {
+  z-index: 3;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(242, 252, 255, 0.9) 18%,
+    rgba(175, 238, 255, 0.88) 56%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  filter: blur(0.8px);
+  overflow: hidden;
+  opacity: 0.9;
+}
+
+.fountain-jet::after {
+  content: "";
+  position: absolute;
+  inset: -30% 0;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.4) 0px,
+    rgba(255, 255, 255, 0.14) 8px,
+    rgba(175, 238, 255, 0.22) 16px,
+    rgba(255, 255, 255, 0.04) 24px
+  );
+  animation: fountainJetRun 0.95s linear infinite;
+}
+
+/* center stream */
+.fountain-jet-1 {
+  left: 72.35%;
+  top: 64.9%;
+  width: 0.30%;
+  height: 6.8%;
+  transform: translateX(-50%);
+}
+
+/* left stream */
+.fountain-jet-2 {
+  left: 74.42%;
+  top: 64.9%;
+  width: 0.3%;
+  height: 6.6%;
+  transform: translateX(-50%) rotate(-7deg);
+  opacity: 0.78;
+}
+
+/* right stream */
+.fountain-jet-3 {
+  left: 71.18%;
+  top: 64.55%;
+  width: 0.22%;
+  height: 5.5;
+  transform: translateX(-50%) rotate(7deg);
+  opacity: 0.78;
+}
+
+@keyframes fountainJetRun {
+  0% {
+    transform: translateY(-18%);
+  }
+  100% {
+    transform: translateY(18%);
+  }
+}
+
+/* soft water glow inside the bowl */
+.fountain-glow {
+  z-index: 2;
   border-radius: 999px;
   background: radial-gradient(
     ellipse,
-    rgba(160, 245, 255, 1) 0%,
-    rgba(110, 228, 255, 0.85) 35%,
-    rgba(160, 245, 255, 0.35) 58%,
-    transparent 76%
+    rgba(165, 245, 255, 0.36) 0%,
+    rgba(115, 228, 255, 0.18) 40%,
+    rgba(165, 245, 255, 0.04) 64%,
+    transparent 80%
   );
-  filter: blur(6px);
-  opacity: 1;
-  animation: fountainGlowPulse 2s ease-in-out infinite;
+  filter: blur(5px);
+  animation: fountainGlowPulse 2.2s ease-in-out infinite;
 }
 
 .fountain-glow-1 {
-  left: 80.1%;
-  top: 75.4%;
-  width: 5.3%;
-  height: 3.6%;
+  left: 75.05%;
+  top: 70.15%;
+  width: 3.6%;
+  height: 1.8%;
   transform: translate(-50%, -50%);
 }
 
 @keyframes fountainGlowPulse {
   0%, 100% {
-    opacity: 0.7;
+    opacity: 0.46;
     transform: translate(-50%, -50%) scale(0.96);
   }
   50% {
-    opacity: 1;
+    opacity: 0.82;
     transform: translate(-50%, -50%) scale(1.04);
   }
-} */
-
-/* expanding ripples in the water bowl */
-/* .fountain-ripple {
-  border-radius: 999px;
-  border: 1.5px solid rgba(210, 250, 255, 1);
-  box-shadow:
-    0 0 8px rgba(170, 244, 255, 0.35),
-    inset 0 0 10px rgba(210, 250, 255, 0.18);
-  opacity: 1;
-  animation: fountainRippleExpand 1.9s ease-out infinite;
 }
 
-.fountain-ripple-1 {
-  left: 80.1%;
-  top: 75.2%;
-  width: 2.1%;
-  height: 1%;
+/* ripples contained within the fountain bowl */
+.fountain-ripple {
+  z-index: 2;
+  border-radius: 999px;
+  border: 1px solid rgba(210, 250, 255, 0.55);
+  box-shadow:
+    0 0 5px rgba(170, 244, 255, 0.16),
+    inset 0 0 6px rgba(210, 250, 255, 0.08);
+  animation: fountainRippleExpand 2s ease-out infinite;
+}
+
+.fountain-ripple-1,
+.fountain-ripple-2 {
+  left: 75.05%;
+  top: 70.15%;
+  width: 1.55%;
+  height: 0.52%;
   transform: translate(-50%, -50%);
 }
 
 .fountain-ripple-2 {
-  left: 80.1%;
-  top: 75.2%;
-  width: 2.1%;
-  height: 1%;
-  transform: translate(-50%, -50%);
-  animation-delay: 0.9s;
+  animation-delay: 1s;
 }
 
 @keyframes fountainRippleExpand {
   0% {
-    opacity: 0.9;
-    transform: translate(-50%, -50%) scale(0.72);
+    opacity: 0.72;
+    transform: translate(-50%, -50%) scale(0.8);
   }
   70% {
-    opacity: 0.55;
+    opacity: 0.28;
   }
   100% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(1.8);
+    transform: translate(-50%, -50%) scale(1.55);
   }
-} */
+}
 
-/* tiny bright splash at the top */
-/* .fountain-spark {
+/* tiny bright splash where water starts */
+.fountain-spark {
+  z-index: 4;
   border-radius: 999px;
   background: radial-gradient(
     circle,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(210, 250, 255, 1) 42%,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(210, 250, 255, 0.75) 42%,
     transparent 76%
   );
-  filter: blur(1px);
-  opacity: 1;
-  animation: fountainSparkPulse 0.9s ease-in-out infinite;
+  filter: blur(0.8px);
+  animation: fountainSparkPulse 1s ease-in-out infinite;
 }
 
 .fountain-spark-1 {
-  left: 80.1%;
-  top: 66%;
-  width: 1.2%;
-  height: 1.2%;
+  left: 75.05%;
+  top: 63.7%;
+  width: 0.45%;
+  height: 0.45%;
   transform: translate(-50%, -50%);
 }
 
 @keyframes fountainSparkPulse {
   0%, 100% {
-    opacity: 0.65;
+    opacity: 0.48;
     transform: translate(-50%, -50%) scale(0.9);
   }
   50% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.16);
+    opacity: 0.88;
+    transform: translate(-50%, -50%) scale(1.12);
   }
-} */
+}
