@@ -118,6 +118,30 @@ export default function VipMapPage() {
         });
     }, [orderedNodes, characterNodeId]);
 
+    const derivedMapProps = useMemo(() => {
+        return land1Data.mapProps.map((prop) => {
+            if (prop.id === "bottom-treasure-custom") {
+                return {
+                    ...prop,
+                    type: characterNodeId > 3
+                        ? "bottomTreasureCustom"
+                        : "bottomTreasureCustomClosed",
+                };
+            }
+
+            if (prop.id === "centre-top-heap-custom") {
+                return {
+                    ...prop,
+                    type: characterNodeId > 5
+                        ? "coinHeapCentreTopOpen"
+                        : "coinHeapCentreTop",
+                };
+            }
+
+            return prop;
+        });
+    }, [characterNodeId]);
+
     const movePrev = () => {
         if (isTravelling) return;
         setCharacterNodeId((prev) => Math.max(1, prev - 1));
@@ -254,12 +278,25 @@ export default function VipMapPage() {
                         height: `${overlayRect.height}px`,
                     }}
                 >
+                    {/* <div className="island-sunburst-backdrop">
+                        <div className="island-sunburst-glow" />
+                        <div className="island-sunburst-rays island-sunburst-rays-a" />
+                        <div className="island-sunburst-rays island-sunburst-rays-b" />
+                        <div className="island-sunburst-haze" />
+                    </div> */}
                     <div className="ocean-motion ocean-motion-1" />
                     <div className="ocean-motion ocean-motion-2" />
                     <div className="ocean-glow-sweep ocean-glow-sweep-1" />
                     <div className="ocean-glow-sweep ocean-glow-sweep-2" />
 
-                    <div className="ambient-sunrise" />
+                    <div className="sky-sunrays">
+                        <span className="sky-sunray sky-sunray-1" />
+                        <span className="sky-sunray sky-sunray-2" />
+                        <span className="sky-sunray sky-sunray-3" />
+                        <span className="sky-sunray sky-sunray-4" />
+                    </div>
+
+                    {/* <div className="ambient-sunrise" /> */}
                     <div className="ambient-birds birds-layer-1">
                         <span className="bird bird-1" />
                         <span className="bird bird-2" />
@@ -298,7 +335,7 @@ export default function VipMapPage() {
                     <div className="fountain-ripple fountain-ripple-2" />
                     <div className="fountain-spark fountain-spark-1" />
 
-                    <div className="map-light-overlay" />
+                    {/* <div className="map-light-overlay" /> */}
 
                     <div className="map-banner">
                         <div className="map-banner-inner">
@@ -333,7 +370,7 @@ export default function VipMapPage() {
                         )}
                     </svg>
 
-                    {land1Data.mapProps?.map((prop) => (
+                    {derivedMapProps.map((prop) => (
                         <MapProp key={prop.id} prop={prop} />
                     ))}
 

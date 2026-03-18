@@ -8,6 +8,13 @@ import singleCoin from "../assets/map-props/single-coin.png";
 import fewCoins from "../assets/map-props/few-coins.png";
 import coinBigPile from "../assets/map-props/coin-big-pile.png";
 import coinsBag from "../assets/map-props/coins-bag.png";
+import bottomTreasureNew from "../assets/map-props/bottom-treasure-new.png";
+import bottomTreasureNewClosed from "../assets/map-props/bottom-treasure-new-closed.png";
+import coinHeapTopRight from "../assets/map-props/coin-heap-top-right.png";
+import coinHeapBottomRight from "../assets/map-props/coin-heap-bottom-right.png";
+import coinHeapCentreTop from "../assets/map-props/coin-heap-centre-top.png";
+import coinHeapCentreTopOpen from "../assets/map-props/coin-heap-centre-top-open.png";
+import sunImage from "../assets/map-props/sun-image.png";
 
 const propImageMap = {
   chestOpen,
@@ -20,6 +27,13 @@ const propImageMap = {
   fewCoins,
   coinBigPile,
   coinsBag,
+  bottomTreasureCustom: bottomTreasureNew,
+  bottomTreasureCustomClosed: bottomTreasureNewClosed,
+  coinHeapTopRight,
+  coinHeapBottomRight,
+  coinHeapCentreTop,
+  coinHeapCentreTopOpen,
+  sunImage,
 };
 
 const propStylePresets = {
@@ -123,6 +137,76 @@ const propStylePresets = {
     shadowOpacity: 0.14,
     scale: 0.98,
   },
+  bottomTreasureCustom: {
+    brightness: 0.95,
+    saturate: 0.9,
+    contrast: 0.96,
+    shadowWidth: "78%",
+    shadowHeight: "16%",
+    shadowY: "86%",
+    shadowOpacity: 0.2,
+    scale: 0.98,
+  },
+  bottomTreasureCustomClosed: {
+    brightness: 0.95,
+    saturate: 0.9,
+    contrast: 0.96,
+    shadowWidth: "78%",
+    shadowHeight: "16%",
+    shadowY: "86%",
+    shadowOpacity: 0.2,
+    scale: 0.98,
+  },
+  coinHeapTopRight: {
+    brightness: 0.95,
+    saturate: 0.9,
+    contrast: 0.96,
+    shadowWidth: "82%",
+    shadowHeight: "14%",
+    shadowY: "86%",
+    shadowOpacity: 0.18,
+    scale: 0.98,
+  },
+  coinHeapBottomRight: {
+    brightness: 0.95,
+    saturate: 0.9,
+    contrast: 0.96,
+    shadowWidth: "86%",
+    shadowHeight: "14%",
+    shadowY: "86%",
+    shadowOpacity: 0.18,
+    scale: 0.98,
+  },
+  coinHeapCentreTop: {
+    brightness: 0.95,
+    saturate: 0.9,
+    contrast: 0.96,
+    shadowWidth: "84%",
+    shadowHeight: "14%",
+    shadowY: "86%",
+    shadowOpacity: 0.18,
+    scale: 0.98,
+  },
+  coinHeapCentreTopOpen: {
+    brightness: 0.95,
+    saturate: 0.9,
+    contrast: 0.96,
+    shadowWidth: "84%",
+    shadowHeight: "14%",
+    shadowY: "86%",
+    shadowOpacity: 0.18,
+    scale: 0.98,
+  },
+  sunImage: {
+    brightness: 1,
+    saturate: 1,
+    contrast: 1,
+    shadowWidth: "0%",
+    shadowHeight: "0%",
+    shadowY: "0%",
+    shadowOpacity: 0,
+    scale: 1,
+  },
 };
 
 export default function MapProp({ prop }) {
@@ -133,7 +217,7 @@ export default function MapProp({ prop }) {
 
   return (
     <div
-      className={`map-prop-anchor ${prop.shine ? "has-shine" : ""} ${prop.aura ? "has-aura" : ""}`}
+      className={`map-prop-anchor ${prop.shine ? "has-shine" : ""} ${prop.aura ? "has-aura" : ""} ${prop.beam ? "has-beam" : ""} ${prop.type === "sunImage" ? "map-prop-anchor-sun" : ""}`}
       style={{
         left: `${prop.x}%`,
         top: `${prop.y}%`,
@@ -150,8 +234,19 @@ export default function MapProp({ prop }) {
         "--prop-brightness": prop.brightness ?? preset.brightness ?? 0.97,
         "--prop-saturate": prop.saturate ?? preset.saturate ?? 0.95,
         "--prop-contrast": prop.contrast ?? preset.contrast ?? 0.98,
+        "--beam-width": prop.beamWidth || "150%",
+        "--beam-height": prop.beamHeight || "125%",
+        "--beam-bottom": prop.beamBottom || "34%",
+        "--beam-opacity": prop.beamOpacity ?? 0.42,
+        "--beam-core-opacity": prop.beamCoreOpacity ?? 0.26,
+        "--beam-rays-size": prop.beamRaysSize || "240%",
+        "--beam-rays-height": prop.beamRaysHeight || "175%",
+        "--beam-rays-bottom": prop.beamRaysBottom || "38%",
+        "--beam-rays-opacity": prop.beamRaysOpacity ?? 0.42,
       }}
     >
+      {prop.beam ? <span className="map-prop-light-rays" /> : null}
+      {prop.beam ? <span className="map-prop-light-beam" /> : null}
       <span className="map-prop-ground-shadow" />
 
       {prop.shine ? <span className="prop-shine-rays" /> : null}
@@ -160,7 +255,7 @@ export default function MapProp({ prop }) {
       <img
         src={imageSrc}
         alt=""
-        className={`map-prop ${prop.animate || ""}`}
+        className={`map-prop ${prop.animate || ""} ${prop.type === "sunImage" ? "map-prop-sun" : ""}`}
         draggable="false"
       />
     </div>
