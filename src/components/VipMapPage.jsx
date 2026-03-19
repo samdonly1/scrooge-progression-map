@@ -132,17 +132,14 @@ export default function VipMapPage() {
                 };
             }
 
-            // if (prop.id === "centre-top-heap-custom") {
-            //     return {
-            //         ...prop,
-            //         type: "coinHeapCentreTop",
-            //         swapImages: {
-            //             closed: "coinHeapCentreTop",
-            //             open: "coinHeapCentreTopOpen",
-            //         },
-            //         isOpen: characterNodeId > 5,
-            //     };
-            // }
+            if (prop.id === "centre-top-heap-custom") {
+                return {
+                    ...prop,
+                    type: "coinHeapCentreTop",
+                    swapImages: undefined,
+                    isOpen: false,
+                };
+            }
 
             return prop;
         });

@@ -211,6 +211,8 @@ const propStylePresets = {
 
 export default function MapProp({ prop }) {
   const imageSrc = propImageMap[prop.type];
+  if (!imageSrc) return null;
+
   const preset = propStylePresets[prop.type] || {};
 
   const swapClosedSrc = prop.swapImages?.closed
@@ -219,9 +221,6 @@ export default function MapProp({ prop }) {
   const swapOpenSrc = prop.swapImages?.open
     ? propImageMap[prop.swapImages.open]
     : null;
-
-  if (prop.swapImages && (!swapClosedSrc || !swapOpenSrc)) return null;
-  if (!prop.swapImages && !imageSrc) return null;
 
   return (
     <div
@@ -260,35 +259,12 @@ export default function MapProp({ prop }) {
       {prop.shine ? <span className="prop-shine-rays" /> : null}
       {prop.aura ? <span className="prop-aura" /> : null}
 
-      {prop.swapImages ? (
-        <div className="map-prop-swap-shell">
-          <img
-            src={swapClosedSrc}
-            alt=""
-            className="map-prop map-prop-swap-sizer"
-            draggable="false"
-          />
-          <img
-            src={swapClosedSrc}
-            alt=""
-            className={`map-prop map-prop-swap-layer ${prop.animate || ""} ${prop.isOpen ? "is-hidden" : "is-visible"}`}
-            draggable="false"
-          />
-          <img
-            src={swapOpenSrc}
-            alt=""
-            className={`map-prop map-prop-swap-layer ${prop.animate || ""} ${prop.isOpen ? "is-visible" : "is-hidden"}`}
-            draggable="false"
-          />
-        </div>
-      ) : (
-        <img
-          src={imageSrc}
-          alt=""
-          className={`map-prop ${prop.animate || ""} ${prop.type === "sunImage" ? "map-prop-sun" : ""}`}
-          draggable="false"
-        />
-      )}
+      <img
+        src={prop.swapImages ? (prop.isOpen ? swapOpenSrc : swapClosedSrc) : imageSrc}
+        alt=""
+        className={`map-prop ${prop.animate || ""} ${prop.type === "sunImage" ? "map-prop-sun" : ""}`}
+        draggable="false"
+      />
     </div>
   );
 }
