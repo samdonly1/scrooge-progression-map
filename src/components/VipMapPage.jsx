@@ -123,20 +123,26 @@ export default function VipMapPage() {
             if (prop.id === "bottom-treasure-custom") {
                 return {
                     ...prop,
-                    type: characterNodeId > 3
-                        ? "bottomTreasureCustom"
-                        : "bottomTreasureCustomClosed",
+                    type: "bottomTreasureCustomClosed",
+                    swapImages: {
+                        closed: "bottomTreasureCustomClosed",
+                        open: "bottomTreasureCustom",
+                    },
+                    isOpen: characterNodeId > 3,
                 };
             }
 
-            if (prop.id === "centre-top-heap-custom") {
-                return {
-                    ...prop,
-                    type: characterNodeId > 5
-                        ? "coinHeapCentreTopOpen"
-                        : "coinHeapCentreTop",
-                };
-            }
+            // if (prop.id === "centre-top-heap-custom") {
+            //     return {
+            //         ...prop,
+            //         type: "coinHeapCentreTop",
+            //         swapImages: {
+            //             closed: "coinHeapCentreTop",
+            //             open: "coinHeapCentreTopOpen",
+            //         },
+            //         isOpen: characterNodeId > 5,
+            //     };
+            // }
 
             return prop;
         });

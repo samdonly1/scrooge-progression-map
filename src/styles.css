@@ -714,6 +714,37 @@ button {
     contrast(var(--prop-contrast, 0.98));
 }
 
+.map-prop-swap-shell {
+  position: relative;
+  width: 100%;
+}
+
+.map-prop-swap-sizer {
+  opacity: 0;
+}
+
+.map-prop-swap-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition:
+    opacity 280ms ease,
+    transform 280ms ease,
+    filter 280ms ease;
+}
+
+.map-prop-swap-layer.is-visible {
+  opacity: var(--prop-opacity, 1);
+  transform: rotate(var(--rot, 0deg)) scale(var(--prop-scale, 1));
+}
+
+.map-prop-swap-layer.is-hidden {
+  opacity: 0 !important;
+  transform: rotate(var(--rot, 0deg)) scale(calc(var(--prop-scale, 1) * 0.985));
+}
+
 /* Subtle chest / character-like idle float */
 .map-prop.floatSlow {
   animation: propFloatSlow 2.8s ease-in-out infinite;

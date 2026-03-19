@@ -63,7 +63,6 @@ export const land1Data = {
       aura: true,
     },
 
-
     // CODE BLOCK FOR CENTRAL CHEST BY THE FOUNTAIN SIDE
 
     // {
@@ -94,7 +93,6 @@ export const land1Data = {
       width: 180,
       rotate: -2,
       z: 3,
-      animate: "floatSlow",
       delay: "0.1s",
       shine: true,
       aura: true,
