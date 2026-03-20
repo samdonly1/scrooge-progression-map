@@ -115,6 +115,8 @@ export default function VipMapPage() {
     const characterShouldFaceFront = !isTravelling && characterNodeId === 1;
 
     const characterShouldFlip = useMemo(() => {
+        if (characterNodeId === 10) return true;
+
         if (!isTravelling || !travelFromNodeId || !travelToNodeId) return false;
 
         const fromNode = nodeById[travelFromNodeId];
@@ -123,7 +125,7 @@ export default function VipMapPage() {
         if (!fromNode || !toNode) return false;
 
         return toNode.x < fromNode.x;
-    }, [isTravelling, travelFromNodeId, travelToNodeId, nodeById]);
+    }, [characterNodeId, isTravelling, travelFromNodeId, travelToNodeId, nodeById]);
 
     const derivedNodes = useMemo(() => {
         return orderedNodes.map((node) => {
