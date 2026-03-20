@@ -104,6 +104,27 @@ export default function VipMapPage() {
         return orderedNodes.find((node) => node.id === characterNodeId);
     }, [orderedNodes, characterNodeId]);
 
+    const characterDisplayNode = useMemo(() => {
+        if (isTravelling && travelToNodeId && nodeById[travelToNodeId]) {
+            return nodeById[travelToNodeId];
+        }
+
+        return currentCharacterNode;
+    }, [isTravelling, travelToNodeId, nodeById, currentCharacterNode]);
+
+    const characterShouldFaceFront = !isTravelling && characterNodeId === 1;
+
+    const characterShouldFlip = useMemo(() => {
+        if (!isTravelling || !travelFromNodeId || !travelToNodeId) return false;
+
+        const fromNode = nodeById[travelFromNodeId];
+        const toNode = nodeById[travelToNodeId];
+
+        if (!fromNode || !toNode) return false;
+
+        return toNode.x < fromNode.x;
+    }, [isTravelling, travelFromNodeId, travelToNodeId, nodeById]);
+
     const derivedNodes = useMemo(() => {
         return orderedNodes.map((node) => {
             let derivedState = "locked";
@@ -202,7 +223,7 @@ export default function VipMapPage() {
     const unlockedRoutePoints = useMemo(() => {
         const points = [];
 
-        for (let i = 1; i <= characterNodeId; i++) {
+        for (let i = 1; i <= Math.min(characterNodeId, 9); i++) {
             if (nodeById[i]) {
                 points.push({
                     x: nodeById[i].x,
@@ -211,22 +232,27 @@ export default function VipMapPage() {
             }
         }
 
-        if (characterNodeId >= 9) {
+        if (characterNodeId >= 10) {
             points.push({
                 x: land1Data.routeWaypoints.after9Curve.x,
                 y: land1Data.routeWaypoints.after9Curve.y,
             });
-        }
 
-        if (characterNodeId >= 10) {
+            points.push({
+                x: nodeById[10].x,
+                y: nodeById[10].y,
+            });
+
             points.push({
                 x: land1Data.routeWaypoints.after10StairsLower.x,
                 y: land1Data.routeWaypoints.after10StairsLower.y,
             });
+
             points.push({
                 x: land1Data.routeWaypoints.after10StairsUpper.x,
                 y: land1Data.routeWaypoints.after10StairsUpper.y,
             });
+
             points.push({
                 x: land1Data.gatePoint.x,
                 y: land1Data.gatePoint.y,
@@ -243,6 +269,17 @@ export default function VipMapPage() {
         const toNode = nodeById[travelToNodeId];
 
         if (!fromNode || !toNode) return [];
+
+        if (travelFromNodeId === 9 && travelToNodeId === 10) {
+            return [
+                { x: fromNode.x, y: fromNode.y },
+                {
+                    x: land1Data.routeWaypoints.after9Curve.x,
+                    y: land1Data.routeWaypoints.after9Curve.y,
+                },
+                { x: toNode.x, y: toNode.y },
+            ];
+        }
 
         return [
             { x: fromNode.x, y: fromNode.y },
@@ -386,8 +423,14 @@ export default function VipMapPage() {
                         />
                     ))}
 
-                    {currentCharacterNode && (
-                        <MapCharacter x={currentCharacterNode.x} y={currentCharacterNode.y} />
+                    {characterDisplayNode && (
+                        <MapCharacter
+                            x={characterDisplayNode.x}
+                            y={characterDisplayNode.y}
+                            isTravelling={isTravelling}
+                            isFrontFacing={characterShouldFaceFront}
+                            flipX={characterShouldFlip}
+                        />
                     )}
                 </div>
 
