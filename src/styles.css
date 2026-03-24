@@ -32,7 +32,8 @@ button {
   background: #0f1d2d;
 }
 
-.full-map-image {
+.full-map-image,
+.full-map-video {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -43,9 +44,15 @@ button {
   pointer-events: none;
 }
 
+.full-map-video {
+  z-index: 0;
+  background: #0f1d2d;
+}
+
 .map-overlay {
   position: absolute;
   overflow: hidden;
+  z-index: 1;
 }
 
 .ocean-motion,
@@ -755,7 +762,7 @@ button {
 
 /* Good for coin piles */
 .map-prop.sparkle {
-  animation: propSparkle 2.6s ease-in-out infinite;
+  animation: propSparkle 2.2s ease-in-out infinite;
 }
 
 /* Optional if you need a glow pulse on some props */
@@ -845,13 +852,39 @@ button {
 @keyframes propSparkle {
   0%,
   100% {
-    opacity: 0.96;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.22)) brightness(1);
+    opacity: 0.985;
+    filter:
+      drop-shadow(0 4px 8px rgba(0, 0, 0, 0.22))
+      drop-shadow(0 0 4px rgba(255, 224, 110, 0.16))
+      brightness(1.03)
+      saturate(1.01);
+  }
+
+  25% {
+    opacity: 0.992;
+    filter:
+      drop-shadow(0 4px 8px rgba(0, 0, 0, 0.22))
+      drop-shadow(0 0 5px rgba(255, 224, 110, 0.2))
+      brightness(1.05)
+      saturate(1.02);
   }
 
   50% {
     opacity: 1;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.22)) brightness(1.12);
+    filter:
+      drop-shadow(0 4px 8px rgba(0, 0, 0, 0.22))
+      drop-shadow(0 0 6px rgba(255, 228, 125, 0.7))
+      brightness(1.08)
+      saturate(1.03);
+  }
+
+  75% {
+    opacity: 0.992;
+    filter:
+      drop-shadow(0 4px 8px rgba(0, 0, 0, 0.22))
+      drop-shadow(0 0 5px rgba(255, 224, 110, 0.2))
+      brightness(1.05)
+      saturate(1.02);
   }
 }
 
@@ -1310,110 +1343,231 @@ button {
   overflow: hidden;
 }
 
-.bird {
+.bird-flock {
+  --flock-scale: 1;
+  position: absolute;
+  left: -22%;
+  width: 190px;
+  height: 86px;
+  opacity: 0;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.bird-flock-1 {
+  --flock-scale: 1;
+  top: 11%;
+  animation: birdFlockFlyA 18s linear infinite;
+}
+
+.bird-flock-2 {
+  --flock-scale: 0.9;
+  top: 18%;
+  animation: birdFlockFlyB 24s linear infinite 5s;
+}
+
+.bird-flock-3 {
+  --flock-scale: 0.82;
+  top: 8.5%;
+  animation: birdFlockFlyC 21s linear infinite 10s;
+}
+
+.bird-sprite {
+  --bird-scale: 1;
+  --flap-delay: 0s;
   position: absolute;
   display: block;
-  width: 20px;
-  height: 11px;
-  opacity: 0.7;
+  width: 100px;
+  height: 28px;
+  transform-origin: center;
+  animation: birdSpriteFloat 1.4s ease-in-out infinite;
 }
 
-.bird::before,
-.bird::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 12px;
-  height: 7px;
-  border-top: 2.4px solid rgba(29, 27, 36, 0.75);
-}
-
-.bird::before {
+.bird-sprite-1 {
   left: 0;
-  border-radius: 100% 0 0 0;
-  transform: rotate(10deg);
+  top: 18px;
+  --bird-scale: 1;
+  --flap-delay: 0s;
+  animation-delay: 0s;
 }
 
-.bird::after {
-  right: 0;
-  border-radius: 0 100% 0 0;
-  transform: rotate(-10deg);
+.bird-sprite-2 {
+  left: 52px;
+  top: 2px;
+  --bird-scale: 0.88;
+  --flap-delay: 0.12s;
+  animation-delay: 0.18s;
 }
 
-.birds-layer-1 .bird-1 {
-  left: -5%;
-  top: 12%;
-  animation: birdsFlyA 18s linear infinite;
+.bird-sprite-3 {
+  left: 0;
+  top: 16px;
+  --bird-scale: 0.98;
+  --flap-delay: 0.04s;
+  animation-delay: 0.08s;
 }
 
-.birds-layer-1 .bird-2 {
-  left: -12%;
-  top: 15%;
-  transform: scale(0.95);
-  animation: birdsFlyA 22s linear infinite 4s;
+.bird-sprite-4 {
+  left: 46px;
+  top: 0;
+  --bird-scale: 0.9;
+  --flap-delay: 0.16s;
+  animation-delay: 0.22s;
 }
 
-.birds-layer-1 .bird-3 {
-  left: -10%;
-  top: 9%;
-  transform: scale(0.82);
-  animation: birdsFlyA 20s linear infinite 9s;
+.bird-sprite-5 {
+  left: 92px;
+  top: 18px;
+  --bird-scale: 0.8;
+  --flap-delay: 0.28s;
+  animation-delay: 0.35s;
 }
 
-.birds-layer-2 .bird-4 {
-  left: -8%;
-  top: 22%;
-  transform: scale(1);
-  opacity: 0.55;
-  animation: birdsFlyB 24s linear infinite 2s;
+.bird-sprite-6 {
+  left: 0;
+  top: 14px;
+  --bird-scale: 0.9;
+  --flap-delay: 0.06s;
+  animation-delay: 0.12s;
 }
 
-.birds-layer-2 .bird-5 {
-  left: -15%;
-  top: 18%;
-  transform: scale(0.78);
-  opacity: 0.48;
-  animation: birdsFlyB 28s linear infinite 11s;
+.bird-sprite-7 {
+  left: 50px;
+  top: 4px;
+  --bird-scale: 0.82;
+  --flap-delay: 0.2s;
+  animation-delay: 0.3s;
 }
 
-@keyframes birdsFlyA {
+.bird-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.bird-frame-1 {
+  animation: birdFlapFrame1 0.34s steps(1) infinite;
+  animation-delay: var(--flap-delay);
+}
+
+.bird-frame-2 {
+  animation: birdFlapFrame2 0.34s steps(1) infinite;
+  animation-delay: var(--flap-delay);
+}
+
+@keyframes birdFlapFrame1 {
+  0%,
+  49.999% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes birdFlapFrame2 {
+  0%,
+  49.999% {
+    opacity: 0;
+  }
+
+  50%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes birdSpriteFloat {
+  0%,
+  100% {
+    transform: translateY(0) scale(var(--bird-scale));
+  }
+
+  50% {
+    transform: translateY(-3px) scale(var(--bird-scale));
+  }
+}
+
+@keyframes birdFlockFlyA {
   0% {
-    transform: translateX(0) translateY(0) scale(1);
+    transform: translate3d(0, 0, 0) scale(var(--flock-scale));
     opacity: 0;
   }
 
   8% {
-    opacity: 0.7;
+    opacity: 0.95;
   }
 
-  50% {
-    transform: translateX(55vw) translateY(-12px) scale(1.03);
-    opacity: 0.75;
+  36% {
+    transform: translate3d(38vw, -10px, 0) scale(var(--flock-scale));
+    opacity: 0.95;
+  }
+
+  68% {
+    transform: translate3d(78vw, 4px, 0) scale(var(--flock-scale));
+    opacity: 0.88;
   }
 
   100% {
-    transform: translateX(112vw) translateY(-4px) scale(0.98);
+    transform: translate3d(calc(122vw + 120px), -2px, 0) scale(var(--flock-scale));
     opacity: 0;
   }
 }
 
-@keyframes birdsFlyB {
+@keyframes birdFlockFlyB {
   0% {
-    transform: translateX(0) translateY(0) scale(0.9);
+    transform: translate3d(0, 0, 0) scale(var(--flock-scale));
     opacity: 0;
   }
 
   10% {
-    opacity: 0.55;
+    opacity: 0.8;
   }
 
-  50% {
-    transform: translateX(60vw) translateY(10px) scale(0.95);
-    opacity: 0.52;
+  34% {
+    transform: translate3d(34vw, 8px, 0) scale(var(--flock-scale));
+    opacity: 0.84;
+  }
+
+  64% {
+    transform: translate3d(74vw, -6px, 0) scale(var(--flock-scale));
+    opacity: 0.76;
   }
 
   100% {
-    transform: translateX(112vw) translateY(-6px) scale(0.88);
+    transform: translate3d(calc(122vw + 120px), 2px, 0) scale(var(--flock-scale));
+    opacity: 0;
+  }
+}
+
+@keyframes birdFlockFlyC {
+  0% {
+    transform: translate3d(0, 0, 0) scale(var(--flock-scale));
+    opacity: 0;
+  }
+
+  9% {
+    opacity: 0.72;
+  }
+
+  40% {
+    transform: translate3d(40vw, -8px, 0) scale(var(--flock-scale));
+    opacity: 0.76;
+  }
+
+  70% {
+    transform: translate3d(80vw, 6px, 0) scale(var(--flock-scale));
+    opacity: 0.68;
+  }
+
+  100% {
+    transform: translate3d(calc(122vw + 120px), -3px, 0) scale(var(--flock-scale));
     opacity: 0;
   }
 }

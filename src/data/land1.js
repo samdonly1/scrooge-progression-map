@@ -93,6 +93,7 @@ export const land1Data = {
       width: 180,
       rotate: -2,
       z: 3,
+      animate: "sparkle",
       delay: "0.1s",
       shine: true,
       aura: true,
@@ -162,6 +163,10 @@ export const land1Data = {
       width: 170,
       rotate: 3,
       z: 3,
+      animate: "sparkle",
+      delay: "0.8s",
+      shine: true,
+      aura: true,
     },
 
     {
@@ -186,6 +191,8 @@ export const land1Data = {
       z: 3,
       animate: "sparkle",
       delay: "1.2s",
+      shine: true,
+      aura: true,
     },
 
     {
@@ -208,6 +215,10 @@ export const land1Data = {
       width: 100,
       rotate: 5,
       z: 3,
+      animate: "sparkle",
+      delay: "1.5s",
+      shine: true,
+      aura: true,
     },
 
     {
@@ -230,6 +241,10 @@ export const land1Data = {
       width: 120,
       rotate: 2,
       z: 2,
+      animate: "sparkle",
+      delay: "0.6s",
+      shine: true,
+      aura: true,
     },
 
     {
@@ -240,6 +255,10 @@ export const land1Data = {
       width: 100,
       rotate: 2,
       z: 2,
+      animate: "sparkle",
+      delay: "1s",
+      shine: true,
+      aura: true,
     },
 
     {
@@ -250,6 +269,10 @@ export const land1Data = {
       width: 60,
       rotate: 10,
       z: 1,
+      animate: "sparkle",
+      delay: "1.35s",
+      shine: true,
+      aura: true,
     },
   ],
 
