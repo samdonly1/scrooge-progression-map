@@ -180,9 +180,9 @@ export const land1Data = {
     {
       id: "top-right-vault",
       type: "vaultClosed",
-      x: 71,
-      y: 33,
-      width: 340,
+      x: 69,
+      y: 30,
+      width: 350,
       rotate: 0,
       z: 4,
     },
@@ -199,6 +199,18 @@ export const land1Data = {
       delay: "1.35s",
       shine: true,
       aura: true,
+    },
+
+    {
+      id: "island-1-bottom-right-label",
+      type: "island1Label",
+      x: 91.8,
+      y: 93.1,
+      width: 215,
+      rotate: 0,
+      z: 12,
+      shadowOpacity: 0,
+      opacity: 1,
     },
   ],
 

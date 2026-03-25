@@ -16,6 +16,7 @@ import coinHeapCentreTop from "../assets/map-props/coin-heap-centre-top.png";
 import coinHeapCentreTopOpen from "../assets/map-props/coin-heap-centre-top-open.png";
 import vaultClosed from "../assets/map-props/vault-closed.png";
 import vaultOpen from "../assets/map-props/vault-open.png";
+import island1Label from "../assets/map-props/island-1-label.png";
 import sunImage from "../assets/map-props/sun-image.png";
 
 const propImageMap = {
@@ -37,6 +38,7 @@ const propImageMap = {
   coinHeapCentreTopOpen,
   vaultClosed,
   vaultOpen,
+  island1Label,
   sunImage,
 };
 
@@ -220,6 +222,16 @@ const propStylePresets = {
     shadowY: "84%",
     shadowOpacity: 0.24,
     scale: 0.98,
+  },
+  island1Label: {
+    brightness: 1,
+    saturate: 1,
+    contrast: 1,
+    shadowWidth: "0%",
+    shadowHeight: "0%",
+    shadowY: "0%",
+    shadowOpacity: 0,
+    scale: 1,
   },
   sunImage: {
     brightness: 1,
