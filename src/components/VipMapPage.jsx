@@ -195,6 +195,18 @@ export default function VipMapPage() {
         };
       }
 
+      if (prop.id === "top-right-vault") {
+        return {
+          ...prop,
+          type: "vaultClosed",
+          swapImages: {
+            closed: "vaultClosed",
+            open: "vaultOpen",
+          },
+          isOpen: characterNodeId >= 10,
+        };
+      }
+
       return prop;
     });
   }, [characterNodeId]);
@@ -356,10 +368,6 @@ export default function VipMapPage() {
             height: `${overlayRect.height}px`,
           }}
         >
-          {/* Keeping only the external overlay elements.
-              Water / sea / fountain CSS animation layers were removed
-              because those motions now come from the MP4 itself. */}
-
           <div className="sky-sunrays">
             <span className="sky-sunray sky-sunray-1" />
             <span className="sky-sunray sky-sunray-2" />
@@ -396,9 +404,6 @@ export default function VipMapPage() {
               <p>{land1Data.subtitle}</p>
             </div>
           </div>
-
-          <div className="gate-halo" />
-          <div className="level-pill">LEVEL 10</div>
 
           <svg className="map-path" viewBox="0 0 100 100" preserveAspectRatio="none">
             <path className="path-locked-underlay" d={fullPath} />

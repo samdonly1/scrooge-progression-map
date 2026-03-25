@@ -99,62 +99,6 @@ export const land1Data = {
       aura: true,
     },
 
-    // {
-    //   id: "centre-top-chest",
-    //   type: "coinHeapCentreTop",
-    //   x: 55.6,
-    //   y: 43,
-    //   width: 85,
-    //   rotate: -4,
-    //   z: 3,
-    // },
-    // {
-    //   id: "coins-centre-top",
-    //   type: "coinPile",
-    //   x: 51,
-    //   y: 46,
-    //   width: 60,
-    //   rotate: 8,
-    //   z: 3,
-    // },
-    // {
-    //   id: "coins-centre-top2",
-    //   type: "coinPile",
-    //   x: 53,
-    //   y: 45,
-    //   width: 60,
-    //   rotate: 10,
-    //   z: 2,
-    // },
-    // {
-    //   id: "coins-centre-top3",
-    //   type: "coinPile",
-    //   x: 55,
-    //   y: 47,
-    //   width: 60,
-    //   rotate: 10,
-    //   z: 2,
-    // },
-
-    // {
-    //   id: "coins-centre-top4",
-    //   type: "coinPile",
-    //   x: 57.4,
-    //   y: 44,
-    //   width: 60,
-    //   rotate: 3,
-    //   z: 1,
-    // },
-    // {
-    //   id: "coins-centre-top5",
-    //   type: "coinPile",
-    //   x: 56.56,
-    //   y: 49,
-    //   width: 60,
-    //   rotate: -2,
-    //   z: 1,
-    // },
-
     {
       id: "centre-top-heap-custom",
       type: "coinHeapCentreTop",
@@ -234,31 +178,13 @@ export const land1Data = {
     },
 
     {
-      id: "gate",
-      type: "coinBigPile",
-      x: 70.8,
-      y: 38,
-      width: 120,
-      rotate: 2,
-      z: 2,
-      animate: "sparkle",
-      delay: "0.6s",
-      shine: true,
-      aura: true,
-    },
-
-    {
-      id: "gate2",
-      type: "coinBigPile",
-      x: 65.8,
-      y: 38,
-      width: 100,
-      rotate: 2,
-      z: 2,
-      animate: "sparkle",
-      delay: "1s",
-      shine: true,
-      aura: true,
+      id: "top-right-vault",
+      type: "vaultClosed",
+      x: 71,
+      y: 33,
+      width: 340,
+      rotate: 0,
+      z: 4,
     },
 
     {
@@ -276,34 +202,28 @@ export const land1Data = {
     },
   ],
 
-  // Final point after node 10 where the route should end near the gate entrance
   gatePoint: {
     x: 68,
     y: 37,
   },
 
-  // These are NOT real nodes. They only shape the route.
   routeWaypoints: {
-    // after node 9, bend on the green land before reaching 10
     after9Curve: {
       x: 85,
       y: 64,
     },
 
-    // after node 10, go toward the stairs / lower approach
     after10StairsLower: {
       x: 65,
       y: 53,
     },
 
-    // then take the upper turn near the stairs before the gate
     after10StairsUpper: {
       x: 70,
       y: 43,
     },
   },
 
-  // Numeric values only, not "40%"
   nodes: [
     { id: 1, x: 16, y: 80, label: "1", state: "claimed", reward: "Starter Coins" },
     { id: 2, x: 24, y: 69, label: "2", state: "claimed", reward: "Treasure Chest" },
