@@ -258,6 +258,19 @@ export default function MapProp({ prop }) {
     ? propImageMap[prop.swapImages.open]
     : null;
 
+  const hasSwapImages = Boolean(prop.swapImages && swapClosedSrc && swapOpenSrc);
+
+  const openLayerStyle = hasSwapImages
+    ? {
+        inset: "0 auto auto auto",
+        width: `${prop.openWidthPercent ?? 100}%`,
+        height: "100%",
+        objectFit: "contain",
+        right: `${prop.openRightOffsetPercent ? `-${prop.openRightOffsetPercent}%` : "0%"}`,
+        top: `${prop.openTopOffsetPx ?? 0}px`,
+      }
+    : undefined;
+
   return (
     <div
       className={`map-prop-anchor ${prop.shine ? "has-shine" : ""} ${prop.aura ? "has-aura" : ""} ${prop.beam ? "has-beam" : ""} ${prop.type === "sunImage" ? "map-prop-anchor-sun" : ""}`}
@@ -295,12 +308,38 @@ export default function MapProp({ prop }) {
       {prop.shine ? <span className="prop-shine-rays" /> : null}
       {prop.aura ? <span className="prop-aura" /> : null}
 
-      <img
-        src={prop.swapImages ? (prop.isOpen ? swapOpenSrc : swapClosedSrc) : imageSrc}
-        alt=""
-        className={`map-prop ${prop.animate || ""} ${prop.type === "sunImage" ? "map-prop-sun" : ""}`}
-        draggable="false"
-      />
+      {hasSwapImages ? (
+        <span className="map-prop-swap-shell">
+          <img
+            src={swapClosedSrc}
+            alt=""
+            className={`map-prop map-prop-swap-sizer ${prop.type === "sunImage" ? "map-prop-sun" : ""}`}
+            draggable="false"
+          />
+
+          <img
+            src={swapClosedSrc}
+            alt=""
+            className={`map-prop map-prop-swap-layer ${prop.isOpen ? "is-hidden" : "is-visible"} ${prop.animate || ""} ${prop.type === "sunImage" ? "map-prop-sun" : ""}`}
+            draggable="false"
+          />
+
+          <img
+            src={swapOpenSrc}
+            alt=""
+            className={`map-prop map-prop-swap-layer ${prop.isOpen ? "is-visible" : "is-hidden"} ${prop.animate || ""} ${prop.type === "sunImage" ? "map-prop-sun" : ""}`}
+            draggable="false"
+            style={openLayerStyle}
+          />
+        </span>
+      ) : (
+        <img
+          src={imageSrc}
+          alt=""
+          className={`map-prop ${prop.animate || ""} ${prop.type === "sunImage" ? "map-prop-sun" : ""}`}
+          draggable="false"
+        />
+      )}
     </div>
   );
 }

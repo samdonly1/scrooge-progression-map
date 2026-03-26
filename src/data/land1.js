@@ -49,42 +49,6 @@ export const land1Data = {
       aura: true,
     },
 
-    // {
-    //   id: "chest-left",
-    //   type: "chestOpen",
-    //   x: 16.5,
-    //   y: 69.5,
-    //   width: 100,
-    //   rotate: -4,
-    //   z: 2,
-    //   animate: "floatSlow",
-    //   delay: "0.1s",
-    //   shine: true,
-    //   aura: true,
-    // },
-
-    // CODE BLOCK FOR CENTRAL CHEST BY THE FOUNTAIN SIDE
-
-    // {
-    //   id: "chest-near-5",
-    //   type: "chestClosed",
-    //   x: 67.5,
-    //   y: 72.8,
-    //   width: 100,
-    //   rotate: 1,
-    //   z: 2,
-    //   animate: "floatSlow",
-    //   delay: "0.1s",
-    //   shine: true,
-    //   aura: true,
-    //   beam: true,
-    //   beamWidth: "200%",
-    //   beamHeight: "110%",
-    //   beamBottom: "34%",
-    //   beamOpacity: 1.9,
-    //   beamCoreOpacity: 1.1,
-    // },
-
     {
       id: "bottom-treasure-custom",
       type: "bottomTreasureCustom",
@@ -185,6 +149,9 @@ export const land1Data = {
       width: 350,
       rotate: 0,
       z: 4,
+      openWidthPercent:100,
+      openRightOffsetPercent: 0,
+      openTopOffsetPx: 0,
     },
 
     {
