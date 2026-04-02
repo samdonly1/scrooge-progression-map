@@ -144,9 +144,9 @@ export const land1Data = {
     {
       id: "top-right-vault",
       type: "vaultClosed",
-      x: 69,
+      x: 70.5,
       y: 30,
-      width: 350,
+      width: 445,
       rotate: 0,
       z: 4,
       openWidthPercent:100,
@@ -171,7 +171,7 @@ export const land1Data = {
     {
       id: "island-1-bottom-right-label",
       type: "island1Label",
-      x: 91.8,
+      x: 93.5,
       y: 93.1,
       width: 215,
       rotate: 0,

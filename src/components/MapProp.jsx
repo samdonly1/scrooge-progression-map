@@ -245,6 +245,8 @@ const propStylePresets = {
   },
 };
 
+const MAP_BASE_WIDTH = 1600;
+
 export default function MapProp({ prop }) {
   const imageSrc = propImageMap[prop.type];
   if (!imageSrc) return null;
@@ -277,7 +279,7 @@ export default function MapProp({ prop }) {
       style={{
         left: `${prop.x}%`,
         top: `${prop.y}%`,
-        width: `${prop.width}px`,
+        width: `${(prop.width / MAP_BASE_WIDTH) * 100}%`,
         zIndex: prop.z || 3,
         "--rot": `${prop.rotate || 0}deg`,
         animationDelay: prop.delay || "0s",
